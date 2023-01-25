@@ -24,9 +24,13 @@ function calculate() {
     let answer;
     try {
         answer = eval(display.value);
+        if (answer == Infinity || answer == -Infinity) throw new Error("Cannot divide by zero.");
+        if (answer == NaN) throw new Error("Invalid answer (NaN).");
         calculations_history.value.push({ expression: expression.innerText, answer});
     }
     catch (e) {
+        // Extra alert if preferable
+        // alert(e.message);
         answer = "Error";
     }
 
