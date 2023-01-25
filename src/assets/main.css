@@ -1,0 +1,37 @@
+@import url("colors.css");
+
+:root {
+  color: white;
+}
+
+/* Style the scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-heliotrope-gray);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-coquelicot);
+  border-radius: 5px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-raisin-black);
+}
+
+header {
+  background-color: var(--color-wintergreen-dream);
+  text-align: center;
+  height: calc(1rem + 5vw + 10vw);
+}
+
+h1 {
+  margin: 0;
+  font-size: calc(1rem + 5vw);
+  padding: 5vw;
+  line-height: calc(1rem + 5vw);
+}
