@@ -4,7 +4,7 @@ import Button from './Button.vue';
 import CalculateButton from './CalculateButton.vue';
 
 var displayingResult = false; // Whether the display is showing a result or an expression
-const history = ref([]);
+const calculations_history = ref([]);
 const display = ref("");
 
 function addDisplay(value) {
@@ -21,8 +21,15 @@ function addDisplay(value) {
 }
 
 function calculate() {
-    let answer = eval(display.value);
-    history.value.push({ expression, answer });
+    let answer;
+    try {
+        answer = eval(display.value);
+        calculations_history.value.push({ expression: expression.innerText, answer});
+    }
+    catch (e) {
+        answer = "Error";
+    }
+
     display.value = answer;
     displayingResult = true;
 }
@@ -59,12 +66,20 @@ const buttons = ref([
             <Button v-for="button in buttons" :key="button.value" :value="button.value" :callback="button.callback" />
             <CalculateButton value="=" :callback="calculate" />
         </div>
+        <div id="history">
+            <h3>History</h3>
+            <span v-for="(calculation, index) in calculations_history">[{{ index }}] {{ calculation.expression }} = {{ calculation.answer }}<br></span>
+        </div>
     </div>
 </template>
 
 <style scoped>
     * {
         user-select: none;
+    }
+
+    #history * {
+        user-select: text;
     }
 
     #calculator {
