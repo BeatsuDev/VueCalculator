@@ -7,3 +7,5 @@ To run this calculator, run the following commands in Command Prompt, Powershell
     cd VueCalculator
     npm install
     npm run dev
+    
+Note that node.js version 16 (I believe it's 16...) or higher is required. I've tested it with node.js version 18.13.0. Get your newest version of node here: https://nodejs.org/en/download/
