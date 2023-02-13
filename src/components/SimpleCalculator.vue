@@ -1,16 +1,28 @@
 <script setup lang="ts">
+import { useCalculationHistoryStore } from '@/stores/calculationHistory';
+import { ref } from 'vue';
+
+const display = ref<HTMLElement | null>(null);
+
+var lastClickedWasSum = false;
+
 function addSymbol(event: MouseEvent) {
   if (!event.target) return;
   if (!(event.target instanceof HTMLElement)) return;
-  if (display.innerText === 'Error') {
-    display.innerText = '';
+  // Reset the display when a button is pressed IF:
+  // 1. The display is currently showing an error
+  // 2. The last button pressed was a sum button AND the current button is a number
+  if (display.value!.innerText === 'Error' || (lastClickedWasSum && /^\d+$/.test(event.target.innerText))) {
+    display.value!.innerText = '';
   }
-  display.innerText += event.target.innerText;
+  lastClickedWasSum = false;
+  display.value!.innerText += event.target.innerText;
 }
 
 function calculate() {
   // Replace ^ with **
-  let toCalculate = display.innerText.replace('^', '**');
+  let unchangedTask = display.value!.innerText;
+  let toCalculate = display.value!.innerText.replace('^', '**');
   let answer;
   
   // If there are only numbers, don't try to calculate
@@ -20,31 +32,35 @@ function calculate() {
   try {
     answer = eval(toCalculate);
   } catch {
-    display.innerText = 'Error';
+    display.value!.innerText = 'Error';
     return;
   }
 
   // Check if answer is valid
   if (isNaN(answer) || !isFinite(answer)) {
-    display.innerText = 'Error';
+    display.value!.innerText = 'Error';
     return;
   }
 
   // Add to history
-  
+  useCalculationHistoryStore().addCalculation({
+    task: unchangedTask,
+    answer: answer.toString(),
+  });
 
   // Set the display to show the answer
-  display.innerText = answer;
+  display.value!.innerText = answer;
+  lastClickedWasSum = true;
 }
 
 function clear() {
-  display.innerText = '';
+  display.value!.innerText = '';
 }
 </script>
 
 <template>
   <main>
-    <div id="display" ref="display">{{ display }}</div>
+    <div id="display" ref="display">{{ display?.innerText }}</div>
     <div id="buttons">
       <div @click="addSymbol" class="button">(</div>
       <div @click="addSymbol" class="button">)</div>
@@ -76,6 +92,9 @@ main {
   overflow: auto;
   border: 5px solid black;
   box-shadow: rgba(10, 10, 10, 0.8) 15px 15px 10px;
+  resize: both;
+  min-height: 320px;
+  min-width: 320px;
 }
 
 #display {
@@ -98,10 +117,13 @@ main {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 2px;
+  height: calc(100% - 40px - 10px - 10px);
 }
 
 .button {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 5px;
   font-size: 1.5rem;
   padding: 5px;
