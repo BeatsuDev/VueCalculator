@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+import FeedbackForm from "@/components/FeedbackForm.vue";
 </script>
 
 <template>
-Feedback
+  <FeedbackForm />
 </template>
 
 <style scoped>
