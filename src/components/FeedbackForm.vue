@@ -1,39 +1,53 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
-import type { ComputedRef } from 'vue';
+import { ref, computed } from 'vue';
+import axios from 'axios';
 
-const name = ref<HTMLInputElement | null>(null);
-const email = ref<HTMLInputElement | null>(null);
-const feedback = ref<HTMLInputElement | null>(null);
+const name = ref('');
+const email = ref('');
+const feedback = ref('');
+
+const isValidSubmission = computed(() => {
+  if (!email.value.length || !feedback.value.length) return false;
+  if (feedback.value.length < 10) return false;
+  if (email.value.length < 5 || !email.value.includes("@")) return false;
+  return true;
+});
 
 const styleOnValid = computed(() => {
   return isValidSubmission.value ? 'submittable' : '';
 });
 
-const isValidSubmission = computed(() => {
-  if (!email.value?.value.length || !feedback.value?.value.length) return false;
-  if (feedback.value?.value.length < 10) return false;
-  if (email.value?.value.length < 5 || email.value?.value.includes("@")) return false;
-  return true;
-});
+const submitForm = () => {
+  if (!isValidSubmission.value) return;
+  axios.get("http://localhost:3000/feedback", {
+    params: {
+      name: name.value,
+      email: email.value,
+      feedback: feedback.value
+    }
+  }).then((response) => {    
+    alert(response.data);
+  }).catch((error) => {
+    alert(error);
+  });
+};
 </script>
 
 <template>
   <div class="wrapper">
-    <div v-if="!isValidSubmission">I not valid!</div>
     <div class="input-row">
       <label for="name">Name</label>
-      <input ref="name" type="text" id="name" />
+      <input v-model="name" type="text" id="name" />
     </div>
     <div class="input-row">
       <label class="required" for="email">Email</label>
-      <input ref="email" type="email" id="email" />
+      <input v-model="email" type="email" id="email" />
     </div>
     <div class="input-row">
       <label class="required" for="feedback">Feedback</label>
-      <textarea ref="feedback" id="feedback" rows="5"></textarea>
+      <textarea v-model="feedback" id="feedback" rows="5"></textarea>
     </div>
-    <button :class="styleOnValid">Submit</button>
+    <button :class="styleOnValid" @click="submitForm">Submit</button>
   </div>
 </template>
 
