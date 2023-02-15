@@ -1,22 +1,39 @@
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue';
+import type { ComputedRef } from 'vue';
 
+const name = ref<HTMLInputElement | null>(null);
+const email = ref<HTMLInputElement | null>(null);
+const feedback = ref<HTMLInputElement | null>(null);
+
+const styleOnValid = computed(() => {
+  return isValidSubmission.value ? 'submittable' : '';
+});
+
+const isValidSubmission = computed(() => {
+  if (!email.value?.value.length || !feedback.value?.value.length) return false;
+  if (feedback.value?.value.length < 10) return false;
+  if (email.value?.value.length < 5 || email.value?.value.includes("@")) return false;
+  return true;
+});
 </script>
 
 <template>
   <div class="wrapper">
+    <div v-if="!isValidSubmission">I not valid!</div>
     <div class="input-row">
       <label for="name">Name</label>
-      <input type="text" id="name" />
+      <input ref="name" type="text" id="name" />
     </div>
     <div class="input-row">
-      <label for="email">Email</label>
-      <input type="email" id="email" />
+      <label class="required" for="email">Email</label>
+      <input ref="email" type="email" id="email" />
     </div>
     <div class="input-row">
-      <label for="feedback">Feedback</label>
-      <textarea id="feedback" rows="5"></textarea>
+      <label class="required" for="feedback">Feedback</label>
+      <textarea ref="feedback" id="feedback" rows="5"></textarea>
     </div>
-    <button class="submittable">Submit</button>
+    <button :class="styleOnValid">Submit</button>
   </div>
 </template>
 
@@ -61,12 +78,14 @@ button {
   cursor: not-allowed;
 }
 
-button:hover {
-  background-color: hsla(160, 100%, 37%, 1);
-  color: white;
-  cursor: pointer;
+.required::after {
+  content: " *";
+  color: #f55;
 }
 
 .submittable {
+  background-color: hsla(160, 100%, 37%, 1);
+  color: white;
+  cursor: pointer;
 }
 </style>
