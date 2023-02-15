@@ -26,7 +26,7 @@ const submitForm = () => {
       feedback: feedback.value
     }
   }).then((response) => {    
-    alert(response.data);
+    alert(JSON.stringify(response.data, null, 4));
   }).catch((error) => {
     alert(error);
   });
