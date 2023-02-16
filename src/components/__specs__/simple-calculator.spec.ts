@@ -11,8 +11,8 @@ describe ("SimpleCalculator", () => {
     test("should add two numbers", () => {
         const wrapper = mount(SimpleCalculator);
         wrapper.find("#display").element.innerHTML = "1+2";
-        console.log(wrapper.find("#ans-btn").html());
-        wrapper.find("#ans-btn").trigger("click");
+        console.log(wrapper.find("#ans-btn").trigger("click"));
         expect(wrapper.find("#display").text()).toBe("3");
+        return true;
     });
 });
