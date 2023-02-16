@@ -1,16 +1,18 @@
-import { expect, describe, test } from 'vitest';
-import { mount } from '@vue/test-utils';
-import SimpleCalculator from '../SimpleCalculator.vue';
+import { expect, describe, test } from "vitest";
+import { mount } from "@vue/test-utils";
+import SimpleCalculator from "../SimpleCalculator.vue";
 
-describe ('SimpleCalculator', () => {
-    test('should render', () => {
+describe ("SimpleCalculator", () => {
+    test("should render", () => {
         const wrapper = mount(SimpleCalculator);
         expect(wrapper.html()).toMatchSnapshot();
     });
-});
 
-describe('sum test', () => {
-	test('adds 1 + 2 to equal 3', () => {
-		expect(1 + 2).toBe(3);
-	});
+    test("should add two numbers", () => {
+        const wrapper = mount(SimpleCalculator);
+        wrapper.find("#display").element.innerHTML = "1+2";
+        console.log(wrapper.find("#ans-btn").html());
+        wrapper.find("#ans-btn").trigger("click");
+        expect(wrapper.find("#display").text()).toBe("3");
+    });
 });
