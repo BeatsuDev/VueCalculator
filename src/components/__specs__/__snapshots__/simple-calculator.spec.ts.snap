@@ -1,0 +1,28 @@
+// Vitest Snapshot v1
+
+exports[`SimpleCalculator > should render 1`] = `
+"<main data-v-ae2a742a=\\"\\">
+  <div data-v-ae2a742a=\\"\\" id=\\"display\\"></div>
+  <div data-v-ae2a742a=\\"\\" id=\\"buttons\\">
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">(</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">)</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">^</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">*</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">7</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">8</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">9</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">/</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">4</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">5</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">6</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">+</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">1</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">2</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">3</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">-</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\">cls</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button number\\">0</div>
+    <div data-v-ae2a742a=\\"\\" class=\\"button\\" id=\\"ans-btn\\">Ans</div>
+  </div>
+</main>"
+`;
