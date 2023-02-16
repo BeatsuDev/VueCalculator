@@ -47,7 +47,7 @@ const submitForm = () => {
       <label class="required" for="feedback">Feedback</label>
       <textarea v-model="feedback" id="feedback" rows="5"></textarea>
     </div>
-    <button :class="styleOnValid" @click="submitForm">Submit</button>
+    <button :disabled="!isValidSubmission" :class="styleOnValid" @click="submitForm">Submit</button>
   </div>
 </template>
 
