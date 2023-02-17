@@ -12,7 +12,7 @@ describe("SimpleCalculator", () => {
         wrapper = mount(SimpleCalculator);
 
         number3 = wrapper.find("#buttons > div:nth-child(15)");
-        ans = wrapper.find("#buttons > div:nth-child(16)");
+        ans = wrapper.find("#buttons > div:nth-child(19)");
         display = wrapper.find("#display");
     });
 
@@ -71,7 +71,7 @@ describe("SimpleCalculator", () => {
     });
 
     it("should clear the display", async () => {
-        const clear = wrapper.find("#buttons > div:nth-child(8)");
+        const clear = wrapper.find("#buttons > div:nth-child(17)");
         
         await number3.trigger("click");
         await clear.trigger("click");
@@ -80,7 +80,7 @@ describe("SimpleCalculator", () => {
     });
 
     it("should show error on divide by zero", async () => {
-        const divide = wrapper.find("#buttons > div:nth-child(9)");
+        const divide = wrapper.find("#buttons > div:nth-child(8)");
         
         await number3.trigger("click");
         await divide.trigger("click");
