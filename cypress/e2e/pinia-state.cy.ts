@@ -14,9 +14,12 @@ describe("Pinia State Tests", () => {
         const historyDiv = cy.get("h2").contains("History").parents("div");
         historyDiv.get("p").contains("1+1 = 2");
 
+        cy.wait(100);
         // Navigate away and back
         cy.get("a").contains("Feedback").click();
+        cy.wait(100);
         cy.go("back");
+        cy.wait(100);
 
         // Check that history persists
         const historyDiv2 = cy.get("h2").contains("History").parents("div");
