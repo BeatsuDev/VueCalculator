@@ -38,7 +38,7 @@ describe("SimpleCalculator", () => {
     });
     
     it("should subtract two numbers", async () => {
-        const minus = wrapper.find("#buttons > div:nth-child(11)");
+        const minus = wrapper.find("#buttons > div:nth-child(16)");
         
         await number3.trigger("click");
         await minus.trigger("click");
@@ -49,7 +49,7 @@ describe("SimpleCalculator", () => {
     });
 
     it("should multiply two numbers", async () => {
-        const multiply = wrapper.find("#buttons > div:nth-child(10)");
+        const multiply = wrapper.find("#buttons > div:nth-child(4)");
         
         await number3.trigger("click");
         await multiply.trigger("click");
@@ -60,7 +60,7 @@ describe("SimpleCalculator", () => {
     });
 
     it("should divide two numbers", async () => {
-        const divide = wrapper.find("#buttons > div:nth-child(9)");
+        const divide = wrapper.find("#buttons > div:nth-child(8)");
         
         await number3.trigger("click");
         await divide.trigger("click");

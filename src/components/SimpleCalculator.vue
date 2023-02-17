@@ -42,15 +42,15 @@ function calculate() {
     return;
   }
 
+  // Set the display to show the answer
+  display.value!.innerHTML = answer;
+  lastClickedWasSum = true;
+
   // Add to history
   useCalculationHistoryStore().addCalculation({
     task: unchangedTask,
     answer: answer.toString(),
   });
-
-  // Set the display to show the answer
-  display.value!.innerHTML = answer;
-  lastClickedWasSum = true;
 }
 
 function clear() {
