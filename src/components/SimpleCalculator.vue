@@ -12,17 +12,17 @@ function addSymbol(event: MouseEvent) {
   // Reset the display when a button is pressed IF:
   // 1. The display is currently showing an error
   // 2. The last button pressed was a sum button AND the current button is a number
-  if (display.value!.innerText === 'Error' || (lastClickedWasSum && /^\d+$/.test(event.target.innerText))) {
-    display.value!.innerText = '';
+  if (display.value!.innerHTML === 'Error' || (lastClickedWasSum && /^\d+$/.test(event.target.innerHTML))) {
+    display.value!.innerHTML = '';
   }
   lastClickedWasSum = false;
-  display.value!.innerText += event.target.innerText;
+  display.value!.innerHTML += event.target.innerHTML;
 }
 
 function calculate() {
   // Replace ^ with **
-  let unchangedTask = display.value!.innerText;
-  let toCalculate = display.value!.innerText.replace('^', '**');
+  let unchangedTask = display.value!.innerHTML;
+  let toCalculate = display.value!.innerHTML.replace('^', '**');
   let answer;
   
   // If there are only numbers, don't try to calculate
@@ -32,13 +32,13 @@ function calculate() {
   try {
     answer = eval(toCalculate);
   } catch {
-    display.value!.innerText = 'Error';
+    display.value!.innerHTML = 'Error';
     return;
   }
 
   // Check if answer is valid
   if (isNaN(answer) || !isFinite(answer)) {
-    display.value!.innerText = 'Error';
+    display.value!.innerHTML = 'Error';
     return;
   }
 
@@ -49,18 +49,18 @@ function calculate() {
   });
 
   // Set the display to show the answer
-  display.value!.innerText = answer;
+  display.value!.innerHTML = answer;
   lastClickedWasSum = true;
 }
 
 function clear() {
-  display.value!.innerText = '';
+  display.value!.innerHTML = '';
 }
 </script>
 
 <template>
   <main>
-    <div id="display" ref="display">{{ display?.innerText }}</div>
+    <div id="display" ref="display">{{ display?.innerHTML }}</div>
     <div id="buttons">
       <div @click="addSymbol" class="button">(</div>
       <div @click="addSymbol" class="button">)</div>
