@@ -10,6 +10,11 @@ To run this calculator, run the following commands in Command Prompt, Powershell
     
 Note that node.js version 16 (I believe it's 16...) or higher is required. I've tested it with node.js version 18.13.0. Get your newest version of node here: https://nodejs.org/en/download/
 
+For the form to work, you must run the mock api file with the json-server package in a seperate terminal.
+
+    npm install json-server
+    npx json-server mock_api.json
+
 # For further developing...
 ## Recommended IDE Setup
 
