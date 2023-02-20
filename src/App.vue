@@ -1,46 +1,52 @@
-<script setup>
-import Calculator from './components/Calculator.vue'
-import History from './components/History.vue'
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-    <header>
-        <h1>Calculator</h1>
-    </header>
-    <div id="calculator-area">
-        <Calculator :history="calculations_history"/>
-        <History :history="calculations_history"/>
+  <header>
+    <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Calculator</RouterLink>
+        <RouterLink to="/feedback">Feedback</RouterLink>
+      </nav>
     </div>
+  </header>
+
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style scoped>
-#calculator-area {
-    display: flex;
-    height: 500px;
-    padding: 40px;
-}
-
-#calculator-area > * {
-    flex: 1;
-}
-
 header {
-    background-color: var(--color-wintergreen-dream);
-    text-align: center;
-    height: calc(1rem + 5vw + 10vw);
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: var(--vt-c-vue-green);
 }
 
-h1 {
-    margin: 0;
-    font-size: calc(1rem + 5vw);
-    padding: 5vw;
-    line-height: calc(1rem + 5vw);
+nav > * {
+  line-height: 50px;
+  height: 100%;
+  margin-left: 20px;
+  color: #555;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  transition-duration: 80ms;
 }
 
-@media (max-width: 850px) {
-    #calculator-area {
-        flex-direction: column;
-        height: 1000px;
-    }
+nav > *:hover {
+  color: white;
+}
+
+main {
+  max-width: 1280px;
+  margin: auto;
+  margin-top: calc(50px + 20px); /* 50px for header */
+  display: flex;
+  justify-content: center;
 }
 </style>

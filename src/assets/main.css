@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url("colors.css");
 
 :root {
@@ -22,3 +23,18 @@ body {
   margin: 0;
   background-color: var(--color-raisin-black);
 }
+=======
+@import './base.css';
+
+::-webkit-scrollbar {
+  background-color: rgba(0,0,0,0);
+  height: 5px;
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(150, 150, 150, 0.7);
+  border-radius: 10px;
+  border: 3px solid rgba(0,0,0,0);
+}
+>>>>>>> v2/master
