@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useCalculationHistoryStore } from '@/stores/calculationHistory';
 import { ref } from 'vue';
+import axios from 'axios';
+import type Result from '@/types/Result';
 
 const display = ref<HTMLElement | null>(null);
 
@@ -19,38 +21,35 @@ function addSymbol(event: MouseEvent) {
   display.value!.innerHTML += event.target.innerHTML;
 }
 
-function calculate() {
-  // Replace ^ with **
-  let unchangedTask = display.value!.innerHTML;
-  let toCalculate = display.value!.innerHTML.replace('^', '**');
-  let answer;
-  
+async function calculate() {
+  let answer: number;
+  let calculation = display.value!.innerHTML;
+
   // If there are only numbers, don't try to calculate
-  if (/^\d+$/.test(toCalculate)) {
+  if (/^\d+$/.test(display.value!.innerHTML)) {
     return;
   }
+
   try {
-    answer = eval(toCalculate);
-  } catch {
+    let response = await axios.post("http://localhost:8080/calculate", {
+      expression: calculation,
+    });
+    let result: Result = response.data;
+
+    // Set the display to show the answer
+    display.value!.innerHTML = "" + result.answer;
+    lastClickedWasSum = true;
+
+    // Add to history
+    useCalculationHistoryStore().addCalculation({
+      task: display.value!.innerHTML,
+      answer: response.data.answer,
+    });
+  } catch (e) {
     display.value!.innerHTML = 'Error';
+    alert(e);
     return;
   }
-
-  // Check if answer is valid
-  if (isNaN(answer) || !isFinite(answer)) {
-    display.value!.innerHTML = 'Error';
-    return;
-  }
-
-  // Set the display to show the answer
-  display.value!.innerHTML = answer;
-  lastClickedWasSum = true;
-
-  // Add to history
-  useCalculationHistoryStore().addCalculation({
-    task: unchangedTask,
-    answer: answer.toString(),
-  });
 }
 
 function clear() {
